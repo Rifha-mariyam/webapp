@@ -9,7 +9,11 @@ app = Flask(__name__)
 # Default route
 @app.route("/")
 def home():
-    return "Welcome to the Meme Generator! Try sending a POST request to /generate_meme with a JSON body."
+    if request.method == "POST":
+        prompt = request.form.get("prompt", "")
+        return generate_meme(prompt)
+    
+    return render_template("index.html")
 
 # Generate meme from a prompt
 @app.route("/generate_meme", methods=["POST"])
