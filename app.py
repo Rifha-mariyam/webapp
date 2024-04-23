@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, render_template  # Import render_template
 import requests
 from PIL import Image, ImageDraw, ImageFont
 import io
