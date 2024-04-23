@@ -1,15 +1,14 @@
+<!-- index.html (inside the 'templates' folder) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Meme Generator</title>
 </head>
 <body>
-    <h1>Welcome to the Meme Generator!</h1>
-    <form action="/" method="post">
-        <label for="prompt">Enter your meme text:</label>
-        <input type="text" name="prompt" id="prompt">
-        <button type="submit">Generate Meme</button>
+    <h1>Generate a Meme</h1>
+    <form action="/" method="POST"> <!-- POST method to submit form -->
+        <input type="text" name="prompt" placeholder="Enter your meme text"> <!-- Name is 'prompt' -->
+        <button type="submit">Generate Meme</button> <!-- Submit button -->
     </form>
 </body>
 </html>
