@@ -1,3 +1,4 @@
+# app.py
 from flask import Flask, request, send_file, render_template  # Import render_template
 import requests
 from PIL import Image, ImageDraw, ImageFont
@@ -6,20 +7,28 @@ import io
 # Create Flask app
 app = Flask(__name__)
 
-# Default route
-@app.route("/")
+# Default route to render the form and handle POST requests
+@app.route("/", methods=["GET", "POST"])
 def home():
     if request.method == "POST":
+        # Extract the form data for the prompt
         prompt = request.form.get("prompt", "")
-        return generate_meme(prompt)
+        if prompt:  # Ensure prompt is not empty
+            # Call generate_meme with the extracted prompt
+            return generate_meme(prompt)
+        else:
+            return "Please enter some text to generate a meme.", 400
     
+    # Render the HTML form on a GET request
     return render_template("index.html")
 
 # Generate meme from a prompt
 @app.route("/generate_meme", methods=["POST"])
-def generate_meme():
-    # Get the prompt from the JSON data
-    prompt = request.json.get("prompt", "")
+def generate_meme(prompt=None):
+    if prompt is None:
+        prompt = request.form.get("prompt", "")  # Handle form data
+        if not prompt:
+            return {"error": "No prompt provided"}, 400
 
     # Fetch a random image from a predefined URL
     image_url = "https://source.unsplash.com/random/800x600"
